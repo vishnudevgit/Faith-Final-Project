@@ -1,0 +1,57 @@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3>Vendor Details</h3><a [routerLink]="['/home/addvvendor']" class="btn btn-info">Create New Vendor</a>
+    </div>
+    <br/>
+    <br/>
+      <input class="form-control my-0 py-1" type="text" placeholder="Search..."  [(ngModel)]="searchString" (ngModelChange)="search(searchString)"aria-label="Search">
+     <button (click)="search(searchString)" class="btn-info">Search</button>
+    <br/>
+    <br>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <td>Vendor Name</td>
+                <td>Address</td>
+                <td>Location</td>
+                <td>Service</td>
+                <td>Pin</td>
+                <td>Contact Person</td>
+                <td>Department</td>
+                <td>Email</td>
+                <td>Phone</td>
+                <td colspan="3">Action</td>
+
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vvendordet of vvendordets | async | paginate: { itemsPerPage: 2, currentPage: p }; let i = index">
+                    <td>{{vvendordet.vdName}}</td>
+                    <td>{{vvendordet.vdAddr}}</td>
+                    <td>{{vvendordet.vdLocation}}</td>
+                    <td>{{vvendordet.vdService}}</td>
+                    <td>{{vvendordet.vdPin}}</td>
+                    <td>{{vvendordet.cpName}}</td>
+                    <td>{{vvendordet.cpDepartment}}</td>
+                    <td>{{vvendordet.cpEmail}}</td>
+                    <td>{{vvendordet.cpPhone}}</td>
+
+                    <td><button type="button" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                        [popoverMessage]="popoverMessage" placement="left" (confirm)="confirmClicked = true"
+                        (cancel)="cancelClicked=true" confirmButtonType="warning" cancelButtonType="default"
+                        (click)="confirmClicked=false; cancelClicked=false " [appendToBody]="true" (confirm)="deletevvendordet(vvendordet.vdId)" class="btn btn-danger">Disable</button>  
+                        <button (click)=updatevvendordet(vvendordet.vdId) class="btn btn-info">Edit</button> 
+                        <!-- <button (click)=editvvendordet(vvendordet.vdId) class="btn btn-info">details</button>   -->
+                    </td>
+                </tr>
+            </tbody>
+        
+        </table>
+        <div style="margin-left: 250px;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        
+    </div>
+</div>
